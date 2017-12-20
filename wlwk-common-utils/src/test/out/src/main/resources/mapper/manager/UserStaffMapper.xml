@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wlwk.manager.repository.UserStaffMapper">
+	<resultMap id="UserStaff" type="com.wlwk.manager.domain.UserStaff">
+		<id property="pkId" javaType="String" column="pk_id" jdbcType="CHAR" />
+		<result property="createUser" javaType="String" column="create_user" jdbcType="CHAR" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="String" column="update_user" jdbcType="CHAR" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="orgId" javaType="String" column="org_id" jdbcType="CHAR" />
+		<result property="staffId" javaType="String" column="staff_id" jdbcType="CHAR" />
+		<result property="staffName" javaType="String" column="staff_name" jdbcType="CHAR" />
+		<result property="staffType" javaType="Integer" column="staff_type" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">
+        <![CDATA[
+        INSERT INTO t_user_staff (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            org_id,
+            staff_id,
+            staff_name,
+            staff_type
+        )
+        VALUES
+            (
+                #{userStaff.pkId, jdbcType = CHAR},
+                #{userStaff.createUser, jdbcType = CHAR},
+                #{userStaff.createTime, jdbcType = TIMESTAMP},
+                #{userStaff.updateUser, jdbcType = CHAR},
+                #{userStaff.updateTime, jdbcType = TIMESTAMP},
+                #{userStaff.delMark, jdbcType = TINYINT},
+                #{userStaff.orgId, jdbcType = CHAR},
+                #{userStaff.staffId, jdbcType = CHAR},
+                #{userStaff.staffName, jdbcType = CHAR},
+                #{userStaff.staffType, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="update" parameterType="Map">
+        <![CDATA[UPDATE t_user_staff]]>
+		<set>
+        <![CDATA[create_user = #{userStaff.createUser},]]>
+        <![CDATA[create_time = #{userStaff.createTime},]]>
+        <![CDATA[update_user = #{userStaff.updateUser},]]>
+        <![CDATA[update_time = #{userStaff.updateTime},]]>
+        <![CDATA[del_mark = #{userStaff.delMark},]]>
+        <![CDATA[org_id = #{userStaff.orgId},]]>
+        <![CDATA[staff_id = #{userStaff.staffId},]]>
+        <![CDATA[staff_name = #{userStaff.staffName},]]>
+        <![CDATA[staff_type = #{userStaff.staffType},]]>
+		</set>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.orgId != null and where.orgId != ''">
+            <![CDATA[AND org_id = #{where.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffId != null and where.staffId != ''">
+            <![CDATA[AND staff_id = #{where.staffId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffName != null and where.staffName != ''">
+            <![CDATA[AND staff_name = #{where.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffType != null">
+            <![CDATA[AND staff_type = #{where.staffType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据主键更新 -->
+	<update id="updateById" parameterType="Map">
+        <![CDATA[UPDATE t_user_staff]]>
+		<set>
+        <![CDATA[create_user = #{userStaff.createUser},]]>
+        <![CDATA[create_time = #{userStaff.createTime},]]>
+        <![CDATA[update_user = #{userStaff.updateUser},]]>
+        <![CDATA[update_time = #{userStaff.updateTime},]]>
+        <![CDATA[del_mark = #{userStaff.delMark},]]>
+        <![CDATA[org_id = #{userStaff.orgId},]]>
+        <![CDATA[staff_id = #{userStaff.staffId},]]>
+        <![CDATA[staff_name = #{userStaff.staffName},]]>
+        <![CDATA[staff_type = #{userStaff.staffType},]]>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{userStaffId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 更新有值数据 -->
+	<update id="updateActive" parameterType="Map">
+        <![CDATA[UPDATE t_user_staff]]>
+		<set>
+			<if test="userStaff.createUser != null and userStaff.createUser != ''">
+            <![CDATA[create_user = #{userStaff.createUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.createTime != null">
+            <![CDATA[create_time = #{userStaff.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="userStaff.updateUser != null and userStaff.updateUser != ''">
+            <![CDATA[update_user = #{userStaff.updateUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.updateTime != null">
+            <![CDATA[update_time = #{userStaff.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="userStaff.delMark != null">
+            <![CDATA[del_mark = #{userStaff.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="userStaff.orgId != null and userStaff.orgId != ''">
+            <![CDATA[org_id = #{userStaff.orgId, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.staffId != null and userStaff.staffId != ''">
+            <![CDATA[staff_id = #{userStaff.staffId, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.staffName != null and userStaff.staffName != ''">
+            <![CDATA[staff_name = #{userStaff.staffName, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.staffType != null">
+            <![CDATA[staff_type = #{userStaff.staffType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.orgId != null and where.orgId != ''">
+            <![CDATA[AND org_id = #{where.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffId != null and where.staffId != ''">
+            <![CDATA[AND staff_id = #{where.staffId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffName != null and where.staffName != ''">
+            <![CDATA[AND staff_name = #{where.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffType != null">
+            <![CDATA[AND staff_type = #{where.staffType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_user_staff]]>
+		<set>
+			<if test="userStaff.createUser != null and userStaff.createUser != ''">
+            <![CDATA[create_user = #{userStaff.createUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.createTime != null">
+            <![CDATA[create_time = #{userStaff.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="userStaff.updateUser != null and userStaff.updateUser != ''">
+            <![CDATA[update_user = #{userStaff.updateUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.updateTime != null">
+            <![CDATA[update_time = #{userStaff.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="userStaff.delMark != null">
+            <![CDATA[del_mark = #{userStaff.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="userStaff.orgId != null and userStaff.orgId != ''">
+            <![CDATA[org_id = #{userStaff.orgId, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.staffId != null and userStaff.staffId != ''">
+            <![CDATA[staff_id = #{userStaff.staffId, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.staffName != null and userStaff.staffName != ''">
+            <![CDATA[staff_name = #{userStaff.staffName, jdbcType=CHAR},]]>
+			</if>
+			<if test="userStaff.staffType != null">
+            <![CDATA[staff_type = #{userStaff.staffType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{userStaffId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="UserStaff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.org_id AS org_id,
+            t.staff_id AS staff_id,
+            t.staff_name AS staff_name,
+            t.staff_type AS staff_type
+        FROM
+            t_user_staff t
+        ]]>
+		<where>
+			<if test="userStaff.pkId != null and userStaff.pkId != ''">
+            <![CDATA[AND t.pk_id = #{userStaff.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="userStaff.createUser != null and userStaff.createUser != ''">
+            <![CDATA[AND t.create_user = #{userStaff.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="userStaff.createTime != null">
+            <![CDATA[AND t.create_time = #{userStaff.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="userStaff.updateUser != null and userStaff.updateUser != ''">
+            <![CDATA[AND t.update_user = #{userStaff.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="userStaff.updateTime != null">
+            <![CDATA[AND t.update_time = #{userStaff.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="userStaff.delMark != null">
+            <![CDATA[AND t.del_mark = #{userStaff.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="userStaff.orgId != null and userStaff.orgId != ''">
+            <![CDATA[AND t.org_id = #{userStaff.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="userStaff.staffId != null and userStaff.staffId != ''">
+            <![CDATA[AND t.staff_id = #{userStaff.staffId, jdbcType=CHAR}]]>
+			</if>
+			<if test="userStaff.staffName != null and userStaff.staffName != ''">
+            <![CDATA[AND t.staff_name = #{userStaff.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="userStaff.staffType != null">
+            <![CDATA[AND t.staff_type = #{userStaff.staffType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="UserStaff">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.org_id AS org_id,
+            t.staff_id AS staff_id,
+            t.staff_name AS staff_name,
+            t.staff_type AS staff_type
+        FROM
+            t_user_staff t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{userStaffId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按条件删除 -->
+	<delete id="delete" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_user_staff
+        ]]>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.orgId != null and where.orgId != ''">
+            <![CDATA[AND org_id = #{where.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffId != null and where.staffId != ''">
+            <![CDATA[AND staff_id = #{where.staffId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffName != null and where.staffName != ''">
+            <![CDATA[AND staff_name = #{where.staffName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.staffType != null">
+            <![CDATA[AND staff_type = #{where.staffType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</delete>
+
+	<!-- 按主键删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_user_staff
+        ]]>
+		<where>
+        <![CDATA[AND pk_id = #{userStaffId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

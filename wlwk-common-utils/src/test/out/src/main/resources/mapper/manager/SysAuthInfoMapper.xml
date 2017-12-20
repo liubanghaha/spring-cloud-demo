@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wlwk.manager.repository.SysAuthInfoMapper">
+	<resultMap id="SysAuthInfo" type="com.wlwk.manager.domain.SysAuthInfo">
+		<id property="pkId" javaType="String" column="pk_id" jdbcType="CHAR" />
+		<result property="createUser" javaType="String" column="create_user" jdbcType="CHAR" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="String" column="update_user" jdbcType="CHAR" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="authCode" javaType="String" column="auth_code" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="CHAR" />
+		<result property="authType" javaType="Integer" column="auth_type" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">
+        <![CDATA[
+        INSERT INTO t_sys_auth_info (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            auth_code,
+            remark,
+            auth_type
+        )
+        VALUES
+            (
+                #{sysAuthInfo.pkId, jdbcType = CHAR},
+                #{sysAuthInfo.createUser, jdbcType = CHAR},
+                #{sysAuthInfo.createTime, jdbcType = TIMESTAMP},
+                #{sysAuthInfo.updateUser, jdbcType = CHAR},
+                #{sysAuthInfo.updateTime, jdbcType = TIMESTAMP},
+                #{sysAuthInfo.delMark, jdbcType = TINYINT},
+                #{sysAuthInfo.authCode, jdbcType = CHAR},
+                #{sysAuthInfo.remark, jdbcType = CHAR},
+                #{sysAuthInfo.authType, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="update" parameterType="Map">
+        <![CDATA[UPDATE t_sys_auth_info]]>
+		<set>
+        <![CDATA[create_user = #{sysAuthInfo.createUser},]]>
+        <![CDATA[create_time = #{sysAuthInfo.createTime},]]>
+        <![CDATA[update_user = #{sysAuthInfo.updateUser},]]>
+        <![CDATA[update_time = #{sysAuthInfo.updateTime},]]>
+        <![CDATA[del_mark = #{sysAuthInfo.delMark},]]>
+        <![CDATA[auth_code = #{sysAuthInfo.authCode},]]>
+        <![CDATA[remark = #{sysAuthInfo.remark},]]>
+        <![CDATA[auth_type = #{sysAuthInfo.authType},]]>
+		</set>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.authCode != null and where.authCode != ''">
+            <![CDATA[AND auth_code = #{where.authCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.remark != null and where.remark != ''">
+            <![CDATA[AND remark = #{where.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.authType != null">
+            <![CDATA[AND auth_type = #{where.authType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据主键更新 -->
+	<update id="updateById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_auth_info]]>
+		<set>
+        <![CDATA[create_user = #{sysAuthInfo.createUser},]]>
+        <![CDATA[create_time = #{sysAuthInfo.createTime},]]>
+        <![CDATA[update_user = #{sysAuthInfo.updateUser},]]>
+        <![CDATA[update_time = #{sysAuthInfo.updateTime},]]>
+        <![CDATA[del_mark = #{sysAuthInfo.delMark},]]>
+        <![CDATA[auth_code = #{sysAuthInfo.authCode},]]>
+        <![CDATA[remark = #{sysAuthInfo.remark},]]>
+        <![CDATA[auth_type = #{sysAuthInfo.authType},]]>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysAuthInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 更新有值数据 -->
+	<update id="updateActive" parameterType="Map">
+        <![CDATA[UPDATE t_sys_auth_info]]>
+		<set>
+			<if test="sysAuthInfo.createUser != null and sysAuthInfo.createUser != ''">
+            <![CDATA[create_user = #{sysAuthInfo.createUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.createTime != null">
+            <![CDATA[create_time = #{sysAuthInfo.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysAuthInfo.updateUser != null and sysAuthInfo.updateUser != ''">
+            <![CDATA[update_user = #{sysAuthInfo.updateUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.updateTime != null">
+            <![CDATA[update_time = #{sysAuthInfo.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysAuthInfo.delMark != null">
+            <![CDATA[del_mark = #{sysAuthInfo.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysAuthInfo.authCode != null and sysAuthInfo.authCode != ''">
+            <![CDATA[auth_code = #{sysAuthInfo.authCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.remark != null and sysAuthInfo.remark != ''">
+            <![CDATA[remark = #{sysAuthInfo.remark, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.authType != null">
+            <![CDATA[auth_type = #{sysAuthInfo.authType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.authCode != null and where.authCode != ''">
+            <![CDATA[AND auth_code = #{where.authCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.remark != null and where.remark != ''">
+            <![CDATA[AND remark = #{where.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.authType != null">
+            <![CDATA[AND auth_type = #{where.authType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_sys_auth_info]]>
+		<set>
+			<if test="sysAuthInfo.createUser != null and sysAuthInfo.createUser != ''">
+            <![CDATA[create_user = #{sysAuthInfo.createUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.createTime != null">
+            <![CDATA[create_time = #{sysAuthInfo.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysAuthInfo.updateUser != null and sysAuthInfo.updateUser != ''">
+            <![CDATA[update_user = #{sysAuthInfo.updateUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.updateTime != null">
+            <![CDATA[update_time = #{sysAuthInfo.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="sysAuthInfo.delMark != null">
+            <![CDATA[del_mark = #{sysAuthInfo.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="sysAuthInfo.authCode != null and sysAuthInfo.authCode != ''">
+            <![CDATA[auth_code = #{sysAuthInfo.authCode, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.remark != null and sysAuthInfo.remark != ''">
+            <![CDATA[remark = #{sysAuthInfo.remark, jdbcType=CHAR},]]>
+			</if>
+			<if test="sysAuthInfo.authType != null">
+            <![CDATA[auth_type = #{sysAuthInfo.authType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{sysAuthInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="SysAuthInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.auth_code AS auth_code,
+            t.remark AS remark,
+            t.auth_type AS auth_type
+        FROM
+            t_sys_auth_info t
+        ]]>
+		<where>
+			<if test="sysAuthInfo.pkId != null and sysAuthInfo.pkId != ''">
+            <![CDATA[AND t.pk_id = #{sysAuthInfo.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysAuthInfo.createUser != null and sysAuthInfo.createUser != ''">
+            <![CDATA[AND t.create_user = #{sysAuthInfo.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysAuthInfo.createTime != null">
+            <![CDATA[AND t.create_time = #{sysAuthInfo.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysAuthInfo.updateUser != null and sysAuthInfo.updateUser != ''">
+            <![CDATA[AND t.update_user = #{sysAuthInfo.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysAuthInfo.updateTime != null">
+            <![CDATA[AND t.update_time = #{sysAuthInfo.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="sysAuthInfo.delMark != null">
+            <![CDATA[AND t.del_mark = #{sysAuthInfo.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="sysAuthInfo.authCode != null and sysAuthInfo.authCode != ''">
+            <![CDATA[AND t.auth_code = #{sysAuthInfo.authCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysAuthInfo.remark != null and sysAuthInfo.remark != ''">
+            <![CDATA[AND t.remark = #{sysAuthInfo.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="sysAuthInfo.authType != null">
+            <![CDATA[AND t.auth_type = #{sysAuthInfo.authType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="SysAuthInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.auth_code AS auth_code,
+            t.remark AS remark,
+            t.auth_type AS auth_type
+        FROM
+            t_sys_auth_info t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{sysAuthInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按条件删除 -->
+	<delete id="delete" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_sys_auth_info
+        ]]>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.authCode != null and where.authCode != ''">
+            <![CDATA[AND auth_code = #{where.authCode, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.remark != null and where.remark != ''">
+            <![CDATA[AND remark = #{where.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.authType != null">
+            <![CDATA[AND auth_type = #{where.authType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</delete>
+
+	<!-- 按主键删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_sys_auth_info
+        ]]>
+		<where>
+        <![CDATA[AND pk_id = #{sysAuthInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>

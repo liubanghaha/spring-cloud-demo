@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wlwk.manager.repository.RoleInfoMapper">
+	<resultMap id="RoleInfo" type="com.wlwk.manager.domain.RoleInfo">
+		<id property="pkId" javaType="String" column="pk_id" jdbcType="CHAR" />
+		<result property="createUser" javaType="String" column="create_user" jdbcType="CHAR" />
+		<result property="createTime" javaType="Date" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="updateUser" javaType="String" column="update_user" jdbcType="CHAR" />
+		<result property="updateTime" javaType="Date" column="update_time" jdbcType="TIMESTAMP" />
+		<result property="delMark" javaType="Integer" column="del_mark" jdbcType="TINYINT" />
+		<result property="orgId" javaType="String" column="org_id" jdbcType="CHAR" />
+		<result property="roleName" javaType="String" column="role_name" jdbcType="CHAR" />
+		<result property="remark" javaType="String" column="remark" jdbcType="CHAR" />
+		<result property="roleType" javaType="Integer" column="role_type" jdbcType="TINYINT" />
+	</resultMap>
+
+	<!-- 插入数据 -->
+	<insert id="insert" parameterType="Map" useGeneratedKeys="false">
+        <![CDATA[
+        INSERT INTO t_role_info (
+            pk_id,
+            create_user,
+            create_time,
+            update_user,
+            update_time,
+            del_mark,
+            org_id,
+            role_name,
+            remark,
+            role_type
+        )
+        VALUES
+            (
+                #{roleInfo.pkId, jdbcType = CHAR},
+                #{roleInfo.createUser, jdbcType = CHAR},
+                #{roleInfo.createTime, jdbcType = TIMESTAMP},
+                #{roleInfo.updateUser, jdbcType = CHAR},
+                #{roleInfo.updateTime, jdbcType = TIMESTAMP},
+                #{roleInfo.delMark, jdbcType = TINYINT},
+                #{roleInfo.orgId, jdbcType = CHAR},
+                #{roleInfo.roleName, jdbcType = CHAR},
+                #{roleInfo.remark, jdbcType = CHAR},
+                #{roleInfo.roleType, jdbcType = TINYINT}
+            )
+        ]]>
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="update" parameterType="Map">
+        <![CDATA[UPDATE t_role_info]]>
+		<set>
+        <![CDATA[create_user = #{roleInfo.createUser},]]>
+        <![CDATA[create_time = #{roleInfo.createTime},]]>
+        <![CDATA[update_user = #{roleInfo.updateUser},]]>
+        <![CDATA[update_time = #{roleInfo.updateTime},]]>
+        <![CDATA[del_mark = #{roleInfo.delMark},]]>
+        <![CDATA[org_id = #{roleInfo.orgId},]]>
+        <![CDATA[role_name = #{roleInfo.roleName},]]>
+        <![CDATA[remark = #{roleInfo.remark},]]>
+        <![CDATA[role_type = #{roleInfo.roleType},]]>
+		</set>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.orgId != null and where.orgId != ''">
+            <![CDATA[AND org_id = #{where.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.roleName != null and where.roleName != ''">
+            <![CDATA[AND role_name = #{where.roleName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.remark != null and where.remark != ''">
+            <![CDATA[AND remark = #{where.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.roleType != null">
+            <![CDATA[AND role_type = #{where.roleType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据主键更新 -->
+	<update id="updateById" parameterType="Map">
+        <![CDATA[UPDATE t_role_info]]>
+		<set>
+        <![CDATA[create_user = #{roleInfo.createUser},]]>
+        <![CDATA[create_time = #{roleInfo.createTime},]]>
+        <![CDATA[update_user = #{roleInfo.updateUser},]]>
+        <![CDATA[update_time = #{roleInfo.updateTime},]]>
+        <![CDATA[del_mark = #{roleInfo.delMark},]]>
+        <![CDATA[org_id = #{roleInfo.orgId},]]>
+        <![CDATA[role_name = #{roleInfo.roleName},]]>
+        <![CDATA[remark = #{roleInfo.remark},]]>
+        <![CDATA[role_type = #{roleInfo.roleType},]]>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{roleInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 更新有值数据 -->
+	<update id="updateActive" parameterType="Map">
+        <![CDATA[UPDATE t_role_info]]>
+		<set>
+			<if test="roleInfo.createUser != null and roleInfo.createUser != ''">
+            <![CDATA[create_user = #{roleInfo.createUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.createTime != null">
+            <![CDATA[create_time = #{roleInfo.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="roleInfo.updateUser != null and roleInfo.updateUser != ''">
+            <![CDATA[update_user = #{roleInfo.updateUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.updateTime != null">
+            <![CDATA[update_time = #{roleInfo.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="roleInfo.delMark != null">
+            <![CDATA[del_mark = #{roleInfo.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="roleInfo.orgId != null and roleInfo.orgId != ''">
+            <![CDATA[org_id = #{roleInfo.orgId, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.roleName != null and roleInfo.roleName != ''">
+            <![CDATA[role_name = #{roleInfo.roleName, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.remark != null and roleInfo.remark != ''">
+            <![CDATA[remark = #{roleInfo.remark, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.roleType != null">
+            <![CDATA[role_type = #{roleInfo.roleType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.orgId != null and where.orgId != ''">
+            <![CDATA[AND org_id = #{where.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.roleName != null and where.roleName != ''">
+            <![CDATA[AND role_name = #{where.roleName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.remark != null and where.remark != ''">
+            <![CDATA[AND remark = #{where.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.roleType != null">
+            <![CDATA[AND role_type = #{where.roleType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</update>
+
+	<!-- 根据主键更新有值数据 -->
+	<update id="updateActiveById" parameterType="Map">
+        <![CDATA[UPDATE t_role_info]]>
+		<set>
+			<if test="roleInfo.createUser != null and roleInfo.createUser != ''">
+            <![CDATA[create_user = #{roleInfo.createUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.createTime != null">
+            <![CDATA[create_time = #{roleInfo.createTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="roleInfo.updateUser != null and roleInfo.updateUser != ''">
+            <![CDATA[update_user = #{roleInfo.updateUser, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.updateTime != null">
+            <![CDATA[update_time = #{roleInfo.updateTime, jdbcType=TIMESTAMP},]]>
+			</if>
+			<if test="roleInfo.delMark != null">
+            <![CDATA[del_mark = #{roleInfo.delMark, jdbcType=TINYINT},]]>
+			</if>
+			<if test="roleInfo.orgId != null and roleInfo.orgId != ''">
+            <![CDATA[org_id = #{roleInfo.orgId, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.roleName != null and roleInfo.roleName != ''">
+            <![CDATA[role_name = #{roleInfo.roleName, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.remark != null and roleInfo.remark != ''">
+            <![CDATA[remark = #{roleInfo.remark, jdbcType=CHAR},]]>
+			</if>
+			<if test="roleInfo.roleType != null">
+            <![CDATA[role_type = #{roleInfo.roleType, jdbcType=TINYINT},]]>
+			</if>
+		</set>
+		<where>
+        <![CDATA[AND pk_id = #{roleInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</update>
+
+	<!-- 查询列表 -->
+	<select id="select" parameterType="Map" resultMap="RoleInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.org_id AS org_id,
+            t.role_name AS role_name,
+            t.remark AS remark,
+            t.role_type AS role_type
+        FROM
+            t_role_info t
+        ]]>
+		<where>
+			<if test="roleInfo.pkId != null and roleInfo.pkId != ''">
+            <![CDATA[AND t.pk_id = #{roleInfo.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="roleInfo.createUser != null and roleInfo.createUser != ''">
+            <![CDATA[AND t.create_user = #{roleInfo.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="roleInfo.createTime != null">
+            <![CDATA[AND t.create_time = #{roleInfo.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="roleInfo.updateUser != null and roleInfo.updateUser != ''">
+            <![CDATA[AND t.update_user = #{roleInfo.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="roleInfo.updateTime != null">
+            <![CDATA[AND t.update_time = #{roleInfo.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="roleInfo.delMark != null">
+            <![CDATA[AND t.del_mark = #{roleInfo.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="roleInfo.orgId != null and roleInfo.orgId != ''">
+            <![CDATA[AND t.org_id = #{roleInfo.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="roleInfo.roleName != null and roleInfo.roleName != ''">
+            <![CDATA[AND t.role_name = #{roleInfo.roleName, jdbcType=CHAR}]]>
+			</if>
+			<if test="roleInfo.remark != null and roleInfo.remark != ''">
+            <![CDATA[AND t.remark = #{roleInfo.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="roleInfo.roleType != null">
+            <![CDATA[AND t.role_type = #{roleInfo.roleType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据主键查询 -->
+	<select id="selectById" parameterType="Map" resultMap="RoleInfo">
+        <![CDATA[
+        SELECT
+            t.pk_id AS pk_id,
+            t.create_user AS create_user,
+            t.create_time AS create_time,
+            t.update_user AS update_user,
+            t.update_time AS update_time,
+            t.del_mark AS del_mark,
+            t.org_id AS org_id,
+            t.role_name AS role_name,
+            t.remark AS remark,
+            t.role_type AS role_type
+        FROM
+            t_role_info t
+        ]]>
+		<where>
+        <![CDATA[AND t.pk_id = #{roleInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</select>
+
+	<!-- 按条件删除 -->
+	<delete id="delete" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_role_info
+        ]]>
+		<where>
+			<if test="where.pkId != null and where.pkId != ''">
+            <![CDATA[AND pk_id = #{where.pkId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createUser != null and where.createUser != ''">
+            <![CDATA[AND create_user = #{where.createUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.createTime != null">
+            <![CDATA[AND create_time = #{where.createTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.updateUser != null and where.updateUser != ''">
+            <![CDATA[AND update_user = #{where.updateUser, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.updateTime != null">
+            <![CDATA[AND update_time = #{where.updateTime, jdbcType=TIMESTAMP}]]>
+			</if>
+			<if test="where.delMark != null">
+            <![CDATA[AND del_mark = #{where.delMark, jdbcType=TINYINT}]]>
+			</if>
+			<if test="where.orgId != null and where.orgId != ''">
+            <![CDATA[AND org_id = #{where.orgId, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.roleName != null and where.roleName != ''">
+            <![CDATA[AND role_name = #{where.roleName, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.remark != null and where.remark != ''">
+            <![CDATA[AND remark = #{where.remark, jdbcType=CHAR}]]>
+			</if>
+			<if test="where.roleType != null">
+            <![CDATA[AND role_type = #{where.roleType, jdbcType=TINYINT}]]>
+			</if>
+		</where>
+	</delete>
+
+	<!-- 按主键删除 -->
+	<delete id="deleteById" parameterType="Map">
+        <![CDATA[
+        DELETE
+        FROM
+            t_role_info
+        ]]>
+		<where>
+        <![CDATA[AND pk_id = #{roleInfoId, jdbcType=CHAR}]]>
+		</where>
+        <![CDATA[LIMIT 1]]>
+	</delete>
+</mapper>
